@@ -2,11 +2,100 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Global Netflix-style defaults */
-html {
-  scroll-behavior: smooth;
+html,
+body,
+#root {
+  height: 100%;
 }
 
 body {
-  @apply bg-black text-white antialiased;
+  margin: 0;
+  background: #000;
+  color: white;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Hide scrollbar but keep scroll working */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Text truncation helpers */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Netflix-style gradient title */
+.netflix-title {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #f2f2f2 28%,
+    #d6d6d6 55%,
+    #bcbcbc 78%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.18),
+    0 0 18px rgba(255, 255, 255, 0.10);
+}
+
+/* Optional vignette utility */
+.hero-vignette {
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0) 38%,
+      rgba(0, 0, 0, 0.35) 78%,
+      rgba(0, 0, 0, 0.55) 100%
+    ),
+    radial-gradient(
+      ellipse at bottom,
+      rgba(0, 0, 0, 0) 22%,
+      rgba(0, 0, 0, 0.38) 72%,
+      rgba(0, 0, 0, 0.58) 100%
+    );
+}
+
+/* Very subtle film grain */
+.hero-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+}
+
+/* Ken Burns slow hero zoom */
+@keyframes heroKenBurns {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(0, -1.5%, 0);
+  }
+}
+
+.hero-kenburns {
+  animation: heroKenBurns 20s ease-out forwards;
+  will-change: transform;
 }
