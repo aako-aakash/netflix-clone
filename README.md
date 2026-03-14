@@ -100,10 +100,10 @@ This project recreates the core user experience of Netflix including movie brows
 - Axios
 
 ---
-```
+
 
 # Project Structure
-
+```
 src
  ┣ components
  ┃ ┣ Navbar
