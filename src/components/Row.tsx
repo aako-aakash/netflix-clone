@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type { MockTitle } from "../data/mock";
 import PosterCard from "./PosterCard";
 
@@ -21,15 +21,23 @@ export default function Row({
   onPreviewActiveChange?: (active: boolean) => void;
 }) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const [activePreviewId, setActivePreviewId] = useState<number | null>(null);
 
   const scrollByAmount = (dir: "left" | "right") => {
     const el = scrollerRef.current;
     if (!el) return;
+
     const amount = Math.round(el.clientWidth * 0.85);
+
     el.scrollBy({
       left: dir === "left" ? -amount : amount,
       behavior: "smooth",
     });
+  };
+
+  const handlePreviewChange = (id: number | null) => {
+    setActivePreviewId(id);
+    onPreviewActiveChange?.(id !== null);
   };
 
   return (
@@ -38,20 +46,23 @@ export default function Row({
         <h2 className="mb-3 text-lg font-semibold text-white/90">{title}</h2>
 
         <div className="group relative">
+          {/* edge fades */}
           <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-black to-transparent" />
           <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-black to-transparent" />
 
+          {/* left arrow */}
           <button
             onClick={() => scrollByAmount("left")}
-            className="absolute left-0 top-[38%] z-20 hidden -translate-y-1/2 rounded-full bg-black/60 p-2 text-white/90 hover:bg-black/80 group-hover:block"
+            className="absolute left-0 top-[38%] z-30 -translate-y-1/2 rounded-full bg-black/65 p-2 text-white/90 opacity-0 transition-opacity duration-200 hover:bg-black/85 group-hover:opacity-100"
             aria-label="Scroll left"
           >
             <ChevronLeft />
           </button>
 
+          {/* right arrow */}
           <button
             onClick={() => scrollByAmount("right")}
-            className="absolute right-0 top-[38%] z-20 hidden -translate-y-1/2 rounded-full bg-black/60 p-2 text-white/90 hover:bg-black/80 group-hover:block"
+            className="absolute right-0 top-[38%] z-30 -translate-y-1/2 rounded-full bg-black/65 p-2 text-white/90 opacity-0 transition-opacity duration-200 hover:bg-black/85 group-hover:opacity-100"
             aria-label="Scroll right"
           >
             <ChevronRight />
@@ -69,7 +80,8 @@ export default function Row({
                 isInList={isInList ? isInList(item.id) : false}
                 onToggleList={onToggleList}
                 progress={progressById ? progressById[item.id] : undefined}
-                onPreviewActiveChange={onPreviewActiveChange}
+                activePreviewId={activePreviewId}
+                onPreviewChange={handlePreviewChange}
               />
             ))}
           </div>
