@@ -7,10 +7,15 @@ This project recreates the core user experience of Netflix including movie brows
 # Live Demo
 ( https://netflix-clone-lac-six-38.vercel.app/ )
 
-# Screenshots : 
+# Screenshots :
+![Profile](./Screenshots/Profiles.png) 
+![Home](./Screenshots/H2.png)
+![Home](./Screenshots/H1.png)
+![Home](./Screenshots/H.png)
 
-
-
+![Movie Details](./Screenshots/MovieDetails.png)
+![Home](./Screenshots/Search.png)
+![Home](./Screenshots/F.png)
 # Features
 
 ## Core UI
@@ -95,7 +100,7 @@ This project recreates the core user experience of Netflix including movie brows
 - Axios
 
 ---
-
+```
 
 # Project Structure
 
@@ -131,8 +136,8 @@ src
  ┗ app
    ┗ App.tsx
 
----
 
+```
 ---
 
 # Environment Variables
